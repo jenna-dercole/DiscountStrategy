@@ -34,8 +34,8 @@ public class LineItem {
         this.qty = qty;
     }
     
-    public final double getSubtotal(int qty, Product p) {
-        return qty * p.getUnitCost();
+    public final double getSubtotal() {
+        return qty * product.getUnitCost();
     }
     
     public final double getDiscountedTotal() {

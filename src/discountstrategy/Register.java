@@ -5,6 +5,8 @@
  */
 package discountstrategy;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Jenna
@@ -15,13 +17,9 @@ public class Register {
     public final Receipt getReceipt() {
         return receipt;
     }
-
-    public final void setReceipt(Receipt receipt) {
-        this.receipt = receipt;
-    }
     
-    public final void endSale(Receipt r) {
-        generateReceipt(r);
+    public final void endSale(){
+        generateReceipt();
     }
 
     public final void addItemToSale(String productId, int qty) {
@@ -29,28 +27,38 @@ public class Register {
     }
     
     public final void startNewSale(String customerID, DataStore db) {
-        Receipt r = new Receipt(customerID, new InMemoryDatabase());
+        receipt = new Receipt(customerID, db);
         Customer customer = db.findCustomerById(customerID);
     }
     
-    public String generateReceipt(Receipt r) {
-        StringBuilder sb = new StringBuilder();
-        LineItem[] li = r.getLineItem();
-        sb.append(r.getReceiptID() + "\n");
-        sb.append(r.PROD_ID + "\t" + r.PROD_NAME + "\t" + 
-                r.UNIT_COST + "\t" + r.QTY + "\t" + "\n");
-        sb.append("-----------------------------------------------------------------" + "\n");
+    public void generateReceipt() {
+        
+        System.out.println(receipt.RECEIPT_ID + receipt.getReceiptID() + "\n");
+        System.out.println("Hello " + receipt.getCustomer().getFirstName() + " " 
+                        + receipt.getCustomer().getLastName());
+        System.out.println(receipt.PROD_ID + "\t\t" + receipt.PROD_NAME + "\t" + 
+                receipt.UNIT_COST + "\t" +receipt.QTY + "\t\t" + receipt.SUBTOTAL + "\t" + receipt.DISCOUNT_AMT);
+        System.out.println("---------------------------------------------------------------------------------------" + "\n");
+        
+        LineItem[] li = receipt.getLineItem();
+        
         for (LineItem i : li) {
-          sb.append(i.getProduct().getProductId() + "\t" + i.getProduct().getName() +
-               "\t" + i.getProduct().getUnitCost() + "\t" + i.getQty() + "\n");
+            String productID = i.getProduct().getProductId();
+            String productName = i.getProduct().getName();
+            double unitCost = i.getProduct().getUnitCost();
+            int qty = i.getQty();
+            System.out.println(productID + "\t" + productName + 
+                    "\t" + unitCost + "\t\t" + qty + "\t\t" + "$" + new DecimalFormat("#.##").format(i.getSubtotal()) +
+                    "\t\t" + "$" + new DecimalFormat("#.##").format(i.getDiscountedTotal())); 
         }
-        return sb.toString();
-    }
+        
+        System.out.println(receipt.TOTAL_SAVED + ": $" + new DecimalFormat("#.##").format(receipt.getDiscountTotal()));
+        System.out.println(receipt.GRAND_TOTAL + ": $" + new DecimalFormat("#.##").format(receipt.getGrandTotal())); 
+        System.out.println(receipt.END_MESSAGE);
+        System.out.println("\n");
    
-    public static void main(String[] args) {
-        Register r = new Register();
-        Receipt r2 = new Receipt("D345", new InMemoryDatabase());
-        r.addItemToSale("A101", 1);
-        System.out.println(r.generateReceipt(r2));
     }
+    
+   
+    
 }

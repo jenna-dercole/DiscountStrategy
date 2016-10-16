@@ -58,8 +58,4 @@ public class Product {
         this.discount = discount;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" + "productId=" + productId + ", name=" + name + ", unitCost=" + unitCost + ", discount=" + discount + '}';
-    }
 }

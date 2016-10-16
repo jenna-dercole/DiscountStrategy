@@ -20,14 +20,14 @@ public class StartUp {
         register.startNewSale("C100", db);
         register.addItemToSale("D457", 5);
         register.addItemToSale("A101", 2);
-        register.endSale(register.getReceipt());
+        register.endSale();
         
         //Sale #2:
         register.startNewSale("B411", db);
         register.addItemToSale("D457", 3);
         register.addItemToSale("A202", 1);
         register.addItemToSale("E412", 2);
-        register.endSale(register.getReceipt());
+        register.endSale();
     }
     
 }
