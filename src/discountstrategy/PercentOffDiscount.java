@@ -22,7 +22,7 @@ public class PercentOffDiscount implements DiscountStrategy {
 
     public final void setPercentOff(double percentOff) {
         if (percentOff < 0) {
-            System.out.println("Enter a percentage greater than 0.");
+           throw new IllegalArgumentException("Percentage cannot be less than 0!");
         } else {
             this.percentOff = percentOff;
         }

@@ -23,6 +23,9 @@ public class LineItem {
     }
 
     public final void setProduct(Product product) {
+        if (product.getName() == null || product.getProductId() == null || product.getDiscount() == null || product.getUnitCost() == 0) {
+            throw new IllegalArgumentException("These fields cannot be set to null!");
+        }
         this.product = product;
     }
 
@@ -31,6 +34,9 @@ public class LineItem {
     }
 
     public final void setQty(int qty) {
+        if (qty < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative!");
+        }
         this.qty = qty;
     }
     

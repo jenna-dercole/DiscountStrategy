@@ -27,21 +27,48 @@ public class Customer {
     }
 
     public final void setLastName(String lastName) {
+        if (lastName == null || lastName.equals("")) {
+            throw new IllegalArgumentException("Last name cannot be empty!");
+        } else if (lastName.length() > 50) {
+            throw new IllegalArgumentException("Last name cannot be greater than 50 characters!");
+        } else if (lastName.trim().equals("")) {
+            throw new IllegalArgumentException("Last name cannot be all spaces!");
+        } else if (lastName.indexOf(" ") == 0) {
+            throw new IllegalArgumentException("Last name cannot start with a space!");
+        } else if (lastName.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Last name cannot contain a number!");
+        }
         this.lastName = lastName;
     }
 
     public final void setFirstName(String firstName) {
+        if (firstName == null || firstName.equals("")) {
+            throw new IllegalArgumentException("Last name cannot be empty!");
+        } else if (firstName.length() > 50) {
+            throw new IllegalArgumentException("Last name cannot be greater than 50 characters!");
+        } else if (firstName.trim().equals("")) {
+            throw new IllegalArgumentException("Last name cannot be all spaces!");
+        } else if (firstName.indexOf(" ") == 0) {
+            throw new IllegalArgumentException("Last name cannot start with a space!");
+        } else if (firstName.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Last name cannot contain a number!");
+        }
         this.firstName = firstName;
     }
 
     public final void setCustomerID(String customerID) {
+        if (customerID.length() == 0 ) {
+            throw new IllegalArgumentException("CustomerID cannot be empty!");
+        } else if (customerID.startsWith("-")) {
+            throw new IllegalArgumentException("CustomerID cannot be negative!");
+        }
         this.customerID = customerID;
     }
 
     public Customer(String lastName, String firstName, String customerID) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.customerID = customerID;
+        setLastName(lastName);
+        setFirstName(firstName);
+        setCustomerID(customerID);
     }
        
 }

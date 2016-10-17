@@ -27,6 +27,9 @@ public class Product {
     }
 
     public final void setProductId(String productId) {
+        if (productId.length() > 30 || productId == null || productId.startsWith("-")) {
+            throw new IllegalArgumentException("Invalid value for productId!");
+        }
         this.productId = productId;
     }
 
@@ -35,6 +38,9 @@ public class Product {
     }
 
     public final void setName(String name) {
+        if (name.length() > 75 || name == null || name.length() == 0) {
+            throw new IllegalArgumentException("Name must not be empty and be less than 75 characters!");
+        }
         this.name = name;
     }
 
@@ -43,6 +49,9 @@ public class Product {
     }
 
     public final void setUnitCost(double unitCost) {
+        if (unitCost < 0) {
+            throw new IllegalArgumentException("Unit cost cannot be less than 0!");
+        }
         this.unitCost = unitCost;
     }
 
@@ -55,6 +64,9 @@ public class Product {
     }
 
     public final void setDiscount(DiscountStrategy discount) {
+        if (discount == null) {
+            throw new IllegalArgumentException("Discount cannot be null!");
+        }
         this.discount = discount;
     }
 
